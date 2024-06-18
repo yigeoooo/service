@@ -2,6 +2,7 @@
 项目信息：<br>
 jdk版本：1.8<br>
 maven: 3.6.1<br>
+MySQL:  8.0.37<br>
 
 >配置jdk信息
 * 设置setting->project structure->project setting->设置sdk为1.8，language level8以下即可（推荐8）
