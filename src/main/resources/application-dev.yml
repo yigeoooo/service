@@ -1,0 +1,153 @@
+spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+#  redis:
+#    open: true  # 是否开启redis缓存  true开启   false关闭
+#    database: 0
+#    host: 47.109.49.39
+#    port: 6379
+#    password: WJY20011219    # 密码（默认为空）
+#    timeout: 6000ms  # 连接超时时长（毫秒）
+#    jedis:
+#      pool:
+#        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+#        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-idle: 10      # 连接池中的最大空闲连接
+#        min-idle: 5       # 连接池中的最小空闲连接
+#  mail:
+#    host: smtp.qq.com
+#    protocol: smtp
+#    default-encoding: utf-8
+#    username: 632084210@qq.com
+#    password: xkooerrtsdgtbcff
+#    test-connection: true
+#    properties:
+#      port: 465
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#          ssl:
+#            enable: true
+#          socketFactory:
+#            port: 465
+#            class: javax.net.ssl.SSLSocketFactory
+  datasource:
+    druid:
+      # Druid 后台管理 Servlet
+      stat-view-servlet:
+        enabled: true
+        #                loginUsername: admin
+        #                loginPassword: 123456
+        allow:
+      # Druid web 监控 filter
+      web-stat-filter:
+        enabled: true
+    dynamic:
+      druid: # 全局druid参数，单独数据源配置为空时取全局配置
+        # 连接池的配置信息
+        # 初始化大小，最小，最大
+        initial-size: 10
+        min-idle: 10
+        maxActive: 800
+        # 配置获取连接等待超时的时间
+        maxWait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+        #Oracle需要打开注释
+        #validation-query: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+        filters: stat,wall,slf4j
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      primary: datasource1
+      # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      strict: true
+      datasource:
+        # datasource1 系统相关
+        datasource1:
+          url: jdbc:mysql://localhost:3306/wjh_system?useUnicode=true&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        # datasource2 资源相关
+#        datasource2:
+#          url: jdbc:mysql://localhost:3306/TITAN02?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: root
+#          password: WJY20011219
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#        # datasource3
+#        datasource3:
+#          url: jdbc:mysql://47.109.49.39:3306/TITAN03?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: root
+#          password: WJY20011219
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#        # datasource4
+#        datasource4:
+#          url: jdbc:mysql://47.109.49.39:3306/TITAN04?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: root
+#          password: WJY20011219
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#        # datasource5
+#        datasource5:
+#          url: jdbc:postgresql://192.168.18.200:7099/saas5_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: postgres
+#          password: tli@1956
+#          driver-class-name: org.postgresql.Driver
+#        # datasource6
+#        datasource6:
+#          url: jdbc:postgresql://192.168.18.200:7099/saas6_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: postgres
+#          password: tli@1956
+#          driver-class-name: org.postgresql.Driver
+#        # datasource7
+#        datasource7:
+#          url: jdbc:postgresql://192.168.18.200:7099/saas7_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: postgres
+#          password: tli@1956
+#          driver-class-name: org.postgresql.Driver
+#        # datasource8
+#        datasource8:
+#          url: jdbc:postgresql://192.168.18.200:7099/saas8_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+#          username: postgres
+#          password: tli@1956
+#          driver-class-name: org.postgresql.Driver
+
+#  rabbitmq:
+#    host: 192.168.18.200
+#    port: 43072
+#    username: array
+#    password: admin
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
+#    template.mandatory: true
+#    virtual-host: /
+#    listener:
+#     simple:
+#      prefetch: 1
+#      acknowledge-mode: manual
+
+logging:
+  path: /home/saas/manager/logs
+
+logLevel: debug
+
+controller:
+  apiHost: http://localhost:8090/
+
+log:
+  basePath: /home/saas/manager/logs
+
+fileUpload:
+  fileUri: "http://localhost:80/payment-admin/file/"
+  basePath: "F:\\upload\\"

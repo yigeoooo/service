@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.system.service.modules.sys.dao.SysUserDao">
+
+    <select id="queryByLoginId" resultType="com.system.service.modules.sys.entity.SysUserEntity">
+        select *
+        from sys_user
+        where login_id = #{loginId}
+          and is_deleted = '0'
+    </select>
+
+    <select id="queryUserList" resultType="com.system.service.modules.sys.entity.SysUserEntity">
+        SELECT
+        su.user_id,
+        su.login_id,
+        su.user_name,
+        su.email,
+        su.telephone,
+        su.is_valid,
+        su.insert_time,
+        su.google_key,
+        string_agg(distinct sd.name,'/') dept_name,
+        string_agg(distinct sr.role_name,'/') role_name,
+        string_agg(distinct sd.dept_name_key,'/') dept_name_key,
+        string_agg(distinct sr.role_name_key,'/') role_name_key
+        FROM
+        sys_user su
+        LEFT JOIN sys_user_dept sud ON su.user_id = sud.user_id
+        AND sud.is_deleted = '1'
+        LEFT JOIN sys_dept sd ON sud.dept_id = sd.dept_id
+        AND sd.is_deleted = '1'
+        left join sys_user_role sur on su.user_id = sur.user_id
+        and sur.is_deleted = '1'
+        left join sys_role sr on sur.role_id = sr.role_id
+        and sr.is_deleted = '1'
+        WHERE
+        su.is_deleted = '1'
+        <if test="userName != null and userName !=''">
+            AND (su.user_name LIKE CONCAT( '%', #{userName}, '%' ) OR su.login_id LIKE CONCAT( '%', #{userName}, '%' ))
+        </if>
+        <if test="isValid != null and isValid !=''">
+            AND su.is_valid = #{isValid}
+        </if>
+        <if test="deptId != null and deptId !=''">
+            AND sud.dept_id = #{deptId}
+        </if>
+        <if test="roleId != null and roleId !=''">
+            AND sur.role_id = #{roleId}
+        </if>
+        <if test="sql_filter != null and sql_filter !=''">
+            and ${sql_filter}
+        </if>
+        GROUP BY
+        su.user_id
+    </select>
+
+    <select id="queryByUserId" resultType="com.system.service.modules.sys.entity.SysUserEntity">
+        select *
+        from sys_user
+        where user_id = #{userId}
+    </select>
+
+    <select id="queryByLoginIdNum" resultType="integer">
+        select count(1)
+        from sys_user
+        where login_id = #{loginId}
+        <if test="userId != null">
+            and user_id != #{userId}
+        </if>
+        and is_deleted = '0'
+    </select>
+
+    <select id="getPage" resultType="com.system.service.modules.sys.dto.SysUserDto">
+        SELECT
+            su.user_id,
+            su.user_name,
+            rm.role_name,
+            su.telephone,
+            su.initial_password,
+            su.email
+        FROM
+            sys_user su
+                INNER JOIN role_master rm ON su.role_id = rm.role_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getUserPage" resultType="com.system.service.modules.sys.dto.SysUserPageDto">
+        SELECT
+            su.login_id,
+            su.user_name,
+            su.telephone,
+            dm.department_name,
+            rm.role_name
+        FROM
+            sys_user su
+                LEFT JOIN department_master dm on dm.department_id = su.department_id
+                LEFT JOIN role_master rm on rm.role_id = su.role_id
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

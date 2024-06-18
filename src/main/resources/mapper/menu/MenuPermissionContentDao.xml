@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.system.service.modules.menu.dao.MenuPermissionContentDao">
+
+    <resultMap id="baseMap" type="com.system.service.modules.menu.dto.MenuContentNodeDto">
+        <id column="menu_id" property="menuId"/>
+        <result column="menu_name" property="menuName"/>
+        <result column="router" property="router"/>
+        <result column="role_id" property="roleId"/>
+        <result column="department_id" property="departmentId"/>
+        <collection property="children"
+                    ofType="com.system.service.modules.menu.dto.MenuContentNodeDto"
+                    select="subSelect"
+                    column="{menuId = menu_id,roleId = role_id, departmentId = department_id}">
+            <id column="menu_id" property="menuId"/>
+            <result column="menu_name" property="menuName"/>
+            <result column="router" property="router"/>
+        </collection>
+    </resultMap>
+
+    <select id="getMenuList" resultMap="baseMap">
+        SELECT
+            mm.menu_id,
+            mm.menu_name,
+            mm.router,
+            mpc.role_id,
+            mpc.department_id
+        FROM
+            menu_master mm
+                INNER JOIN
+            menu_permission_content mpc on mm.menu_id = mpc.menu_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="subSelect" resultType="com.system.service.modules.menu.dto.MenuContentNodeDto">
+        SELECT
+            mm.menu_id,
+            mm.menu_name,
+            mm.router,
+            mpc.role_id,
+            mpc.department_id
+        FROM
+            menu_master mm
+                INNER JOIN
+            menu_permission_content mpc on mm.menu_id = mpc.menu_id
+        where
+            mm.parent_menu_id = #{menuId} and mpc.role_id = #{roleId} and mpc.department_id = #{departmentId}
+        order by
+            mm.sort ASC
+    </select>
+
+</mapper>

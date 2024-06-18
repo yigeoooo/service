@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.system.service.modules.menu.dao.MenuMasterDao">
+
+    <resultMap id="baseMap" type="com.system.service.modules.menu.dto.MenuMasterNodeDto">
+        <id column="menu_id" property="menuId"/>
+        <result column="parent_menu_id" property="parentMenuId"/>
+        <result column="menu_name" property="menuName"/>
+        <result column="router" property="router"/>
+        <result column="user_name" property="userName"/>
+        <result column="insert_time" property="insertTime"/>
+        <result column="sort" property="sort"/>
+        <collection property="children"
+                    ofType="com.system.service.modules.menu.dto.MenuMasterNodeDto"
+                    column="menuId = menu_id"
+                    select="subSelect">
+            <id column="menu_id" property="menuId"/>
+            <result column="parent_menu_id" property="parentMenuId"/>
+            <result column="menu_name" property="menuName"/>
+            <result column="router" property="router"/>
+            <result column="user_name" property="userName"/>
+            <result column="insert_time" property="insertTime"/>
+            <result column="sort" property="sort"/>
+        </collection>
+    </resultMap>
+
+    <select id="getPage" resultMap="baseMap">
+        select
+            mm.menu_id,
+            mm.parent_menu_id,
+            mm.menu_name,
+            mm.router,
+            su.user_name,
+            mm.insert_time,
+            mm.sort
+        from
+            sys_user su
+        inner join menu_master mm on mm.insert_user_id = su.user_id
+        where
+            mm.parent_menu_id = 0
+    </select>
+
+    <select id="subSelect" resultType="com.system.service.modules.menu.dto.MenuMasterNodeDto">
+        select
+            mm.menu_id,
+            mm.parent_menu_id,
+            mm.menu_name,
+            mm.router,
+            su.user_name,
+            mm.insert_time,
+            mm.sort
+        from
+            sys_user su
+                inner join menu_master mm on mm.insert_user_id = su.user_id
+        where
+            mm.parent_menu_id = #{menuId}
+        order by
+            mm.sort ASC
+    </select>
+
+</mapper>
