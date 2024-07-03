@@ -90,7 +90,7 @@
             su.login_id,
             su.user_name,
             su.telephone,
-            dm.department_name,
+            IFNULL(dm.department_name, '无') as departmentName,
             rm.role_name
         FROM
             sys_user su

@@ -9,13 +9,13 @@
             rm.role_name,
             rm.insert_time,
             su.user_name,
-            dm.department_name,
+            IFNULL(dm.department_name,'无') AS departmentName,
             rm.sort
         FROM
             sys_user su
                 INNER JOIN
             role_master rm on su.user_id = rm.insert_user_id
-                INNER JOIN
+                LEFT JOIN
             department_master dm on dm.department_id = rm.department_id
         ${ew.customSqlSegment}
     </select>

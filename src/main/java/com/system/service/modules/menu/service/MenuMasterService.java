@@ -7,6 +7,7 @@ import com.system.service.common.pojo.vo.BasicsVo;
 import com.system.service.modules.menu.dto.MenuMasterNodeDto;
 import com.system.service.modules.menu.dto.MenuMasterParentOptionsDto;
 import com.system.service.modules.menu.entity.MenuMasterEntity;
+import com.system.service.modules.menu.vo.MenuMasterAddVo;
 
 import java.util.List;
 
@@ -29,6 +30,10 @@ public interface MenuMasterService extends IService<MenuMasterEntity> {
      * @return 父类菜单集合
      */
     List<MenuMasterParentOptionsDto> getParentMenuOptions();
-
+    /**
+     * 新增菜单信息
+     * @param vo 接参对象
+     */
+    void insert(MenuMasterAddVo vo);
 }
 

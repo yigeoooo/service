@@ -5,10 +5,9 @@ import com.system.service.common.pojo.vo.BasicsVo;
 import com.system.service.common.utils.ResultInfo;
 import com.system.service.modules.menu.dto.MenuMasterNodeDto;
 import com.system.service.modules.menu.dto.MenuMasterParentOptionsDto;
+import com.system.service.modules.menu.vo.MenuMasterAddVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.system.service.modules.menu.service.MenuMasterService;
 
 import java.util.List;
@@ -45,6 +44,17 @@ public class MenuMasterController {
     @GetMapping("/parentMenuList")
     public ResultInfo<List<MenuMasterParentOptionsDto>> getParentMenuList() {
         return ResultInfo.build(menuMasterService.getParentMenuOptions());
+    }
+
+    /**
+     * 新增菜单信息
+     * @param vo 接参对象
+     * @return 统一返回值
+     */
+    @PostMapping("/add")
+    public ResultInfo<String> add(@RequestBody MenuMasterAddVo vo) {
+        menuMasterService.insert(vo);
+        return ResultInfo.build();
     }
 
 }
