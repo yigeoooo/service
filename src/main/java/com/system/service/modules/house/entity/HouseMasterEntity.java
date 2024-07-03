@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
  * 房间主表
- * 
+ *
  * @author WangJianHui
  * @email 2844623709@qq.com
  * @date 2024-07-03 19:10:19
@@ -60,5 +61,9 @@ public class HouseMasterEntity implements Serializable {
 	 * 逻辑删除标识符(0：正常，1：删除)
 	 */
 	private String isDeleted;
+	/**
+	 * 房间单价
+	 */
+	private BigDecimal price;
 
 }
