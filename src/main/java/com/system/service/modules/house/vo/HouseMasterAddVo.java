@@ -26,5 +26,9 @@ public class HouseMasterAddVo {
      * 房间单价
      */
     private BigDecimal price;
+    /**
+     * 房间编号
+     */
+    private String houseNumber;
 
 }

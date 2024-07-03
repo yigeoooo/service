@@ -3,6 +3,18 @@
 
 <mapper namespace="com.system.service.modules.house.dao.HouseMasterDao">
 
-
+    <select id="selectPage" resultType="com.system.service.modules.house.dto.HouseMasterPageDto">
+        select
+            id,
+            house_name,
+            password,
+            price,
+            state,
+            sort,
+            house_number
+        from
+            house_master
+        ${ew.customSqlSegment}
+    </select>
 
 </mapper>

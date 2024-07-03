@@ -65,5 +65,8 @@ public class HouseMasterEntity implements Serializable {
 	 * 房间单价
 	 */
 	private BigDecimal price;
-
+	/**
+	 * 房间编号
+	 */
+	private String houseNumber;
 }
