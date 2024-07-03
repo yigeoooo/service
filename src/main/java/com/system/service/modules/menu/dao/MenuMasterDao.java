@@ -2,10 +2,13 @@ package com.system.service.modules.menu.dao;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.system.service.modules.menu.dto.MenuMasterNodeDto;
+import com.system.service.modules.menu.dto.MenuMasterParentOptionsDto;
 import com.system.service.modules.menu.entity.MenuMasterEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 菜单主档表
@@ -24,4 +27,9 @@ public interface MenuMasterDao extends BaseMapper<MenuMasterEntity> {
      */
     Page<MenuMasterNodeDto> getPage(Page<MenuMasterEntity> page);
 
+    /**
+     * 查询父级菜单列表
+     * @return 父类菜单集合
+     */
+    List<MenuMasterParentOptionsDto> getParentMenuOptions();
 }

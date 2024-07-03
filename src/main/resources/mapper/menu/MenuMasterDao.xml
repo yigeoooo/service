@@ -59,4 +59,14 @@
             mm.sort ASC
     </select>
 
+    <select id="getParentMenuOptions" resultType="com.system.service.modules.menu.dto.MenuMasterParentOptionsDto">
+        select
+            menu_id as parentMenuId,
+            menu_name
+        from
+            menu_master
+        where
+            parent_menu_id = '0'
+    </select>
+
 </mapper>

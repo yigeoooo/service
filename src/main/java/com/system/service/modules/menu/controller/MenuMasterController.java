@@ -1,13 +1,12 @@
 package com.system.service.modules.menu.controller;
 
-import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.system.service.common.pojo.vo.BasicsVo;
 import com.system.service.common.utils.ResultInfo;
 import com.system.service.modules.menu.dto.MenuMasterNodeDto;
+import com.system.service.modules.menu.dto.MenuMasterParentOptionsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.system.service.modules.menu.service.MenuMasterService;
@@ -37,6 +36,15 @@ public class MenuMasterController {
     @GetMapping("/list")
     public ResultInfo<Page<MenuMasterNodeDto>> getMenuList(BasicsVo vo) {
         return ResultInfo.build(menuMasterService.getTreeList(vo));
+    }
+
+    /**
+     * 查询父级菜单列表
+     * @return 统一返回值
+     */
+    @GetMapping("/parentMenuList")
+    public ResultInfo<List<MenuMasterParentOptionsDto>> getParentMenuList() {
+        return ResultInfo.build(menuMasterService.getParentMenuOptions());
     }
 
 }

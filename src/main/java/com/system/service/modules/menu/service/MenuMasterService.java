@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.system.service.common.pojo.vo.BasicsVo;
 import com.system.service.modules.menu.dto.MenuMasterNodeDto;
+import com.system.service.modules.menu.dto.MenuMasterParentOptionsDto;
 import com.system.service.modules.menu.entity.MenuMasterEntity;
 
 import java.util.List;
@@ -23,6 +24,11 @@ public interface MenuMasterService extends IService<MenuMasterEntity> {
      * @return 树形结构
      */
     Page<MenuMasterNodeDto> getTreeList(BasicsVo vo);
+    /**
+     * 查询父级菜单列表
+     * @return 父类菜单集合
+     */
+    List<MenuMasterParentOptionsDto> getParentMenuOptions();
 
 }
 
