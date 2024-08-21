@@ -1,12 +1,12 @@
 package com.system.service.modules.order.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.system.service.common.utils.ResultInfo;
+import com.system.service.modules.order.dto.OrderMasterPageDto;
 import com.system.service.modules.order.vo.OrderMasterAddVo;
+import com.system.service.modules.order.vo.OrderMasterPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.system.service.modules.order.service.OrderMasterService;
 
 
@@ -34,6 +34,16 @@ public class OrderMasterController {
     public ResultInfo<String> insert(@RequestBody OrderMasterAddVo vo) {
         orderMasterService.insertOrder(vo);
         return ResultInfo.build();
+    }
+
+    /**
+     * 查询特定房间预订详情
+     * @param vo 接参对象
+     * @return 统一返回值
+     */
+    @GetMapping("/page")
+    public ResultInfo<Page<OrderMasterPageDto>> selectPage(OrderMasterPageVo vo) {
+        return ResultInfo.build(orderMasterService.page(vo));
     }
 
 }

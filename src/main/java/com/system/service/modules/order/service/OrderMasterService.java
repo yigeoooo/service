@@ -1,8 +1,11 @@
 package com.system.service.modules.order.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.system.service.modules.order.dto.OrderMasterPageDto;
 import com.system.service.modules.order.entity.OrderMasterEntity;
 import com.system.service.modules.order.vo.OrderMasterAddVo;
+import com.system.service.modules.order.vo.OrderMasterPageVo;
 
 /**
  * 房间订单主档表
@@ -17,6 +20,13 @@ public interface OrderMasterService extends IService<OrderMasterEntity> {
      * @param vo 接视视图类
      */
     void insertOrder(OrderMasterAddVo vo);
+
+    /**
+     * 查询特定房间预订详情
+     * @param id 房间主键
+     * @return page对象
+     */
+    Page<OrderMasterPageDto> page(OrderMasterPageVo vo);
 
 }
 

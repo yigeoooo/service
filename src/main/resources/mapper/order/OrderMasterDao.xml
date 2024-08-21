@@ -3,6 +3,35 @@
 
 <mapper namespace="com.system.service.modules.order.dao.OrderMasterDao">
 
+    <select id="selectPage" resultType="com.system.service.modules.order.dto.OrderMasterPageDto">
+        SELECT
+            om.id,
+            om.house_id,
+            hm.house_name,
+            hm.house_number,
+            om.begin_date,
+            om.last_date,
+            om.days,
+            om.total_price,
+            om.state,
+            su.user_name,
+            su.user_id
+        FROM
+            house_master hm
+                INNER JOIN
+            order_master om ON hm.id =om.house_id
+                INNER JOIN
+            sys_user su on su.user_id = om.user_id
+        ${ew.customSqlSegment}
+    </select>
 
+    <update id="editOrderState">
+        update
+            order_master
+        set
+            state = '0'
+        where
+            house_id = ${houseId} and state = '1'
+    </update>
 
 </mapper>

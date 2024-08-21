@@ -5,16 +5,57 @@
 
     <select id="selectPage" resultType="com.system.service.modules.house.dto.HouseMasterPageDto">
         select
-            id,
-            house_name,
-            password,
-            price,
-            state,
-            sort,
-            house_number
+            hm.id,
+            hm.house_name,
+            hm.password,
+            hm.price,
+            hm.state,
+            hm.sort,
+            hm.house_number,
+            su.user_name
         from
-            house_master
+            house_master hm
+            left join
+            sys_user su on su.user_id = hm.user_id
         ${ew.customSqlSegment}
     </select>
+
+    <update id="editHouse">
+        update
+            house_master
+        set
+            user_id = ${userId},
+            state = 1
+        where
+            id = ${houseId}
+    </update>
+
+    <update id="returnHouse">
+        update
+            house_master
+        set
+            user_id = "",
+            state = 2
+        where
+            id = ${houseId}
+    </update>
+
+    <update id="cleanHouse">
+        update
+            house_master
+        set
+            state = 3
+        where
+            id = ${houseId}
+    </update>
+
+    <update id="finishClean">
+        update
+            house_master
+        set
+            state = 0
+        where
+            id = ${houseId}
+    </update>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.system.service.modules.house.dto.HouseMasterPageDto;
 import com.system.service.modules.house.entity.HouseMasterEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.system.service.modules.house.vo.HouseMasterEditVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,11 @@ public interface HouseMasterDao extends BaseMapper<HouseMasterEntity> {
     Page<HouseMasterPageDto> selectPage(@Param("page") Page<HouseMasterEntity> page,
                                         @Param("ew")QueryWrapper<HouseMasterEntity> ew);
 
+    Integer editHouse(HouseMasterEditVo vo);
+
+    Integer returnHouse(String houseId);
+
+    Integer cleanHouse(String houseId);
+
+    Integer finishClean(String houseId);
 }

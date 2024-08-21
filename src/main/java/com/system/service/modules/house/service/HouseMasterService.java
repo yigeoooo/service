@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.system.service.modules.house.dto.HouseMasterPageDto;
 import com.system.service.modules.house.entity.HouseMasterEntity;
 import com.system.service.modules.house.vo.HouseMasterAddVo;
+import com.system.service.modules.house.vo.HouseMasterEditVo;
 import com.system.service.modules.house.vo.HouseMasterPageVo;
 
 /**
@@ -27,5 +28,29 @@ public interface HouseMasterService extends IService<HouseMasterEntity> {
      * @return 分页对象
      */
     Page<HouseMasterPageDto> selectPage(HouseMasterPageVo vo);
+
+    /**
+     * 入住
+     * @param vo 接参对象
+     */
+    void editHouse(HouseMasterEditVo vo);
+
+    /**
+     * 退房
+     * @param houseId 房间ID
+     */
+    void returnHouse(String houseId);
+
+    /**
+     * 打扫房间
+     * @param houseId 房间ID
+     */
+    void cleanHouse(String houseId);
+
+    /**
+     * 完成打扫
+     * @param houseId 房间ID
+     */
+    void finishClean(String houseId);
 }
 

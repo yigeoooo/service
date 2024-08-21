@@ -41,4 +41,6 @@ public class HouseMasterPageDto {
      */
     private String houseNumber;
 
+    private String userName;
+
 }

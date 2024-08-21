@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.system.service.common.utils.ResultInfo;
 import com.system.service.modules.house.dto.HouseMasterPageDto;
 import com.system.service.modules.house.vo.HouseMasterAddVo;
+import com.system.service.modules.house.vo.HouseMasterEditVo;
 import com.system.service.modules.house.vo.HouseMasterPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,4 +47,47 @@ public class HouseMasterController {
         return ResultInfo.build(houseMasterService.selectPage(vo));
     }
 
+    /**
+     * 入住
+     * @param vo 接参对象
+     * @return 统一返回值
+     */
+    @PatchMapping("/edit")
+    public ResultInfo<String> editHouse(@RequestBody HouseMasterEditVo vo) {
+        houseMasterService.editHouse(vo);
+        return ResultInfo.build();
+    }
+
+    /**
+     * 退房
+     * @param houseId 房间ID
+     * @return 统一返回值
+     */
+    @GetMapping("/editState")
+    public ResultInfo<String> editHouseState(String houseId) {
+        houseMasterService.returnHouse(houseId);
+        return ResultInfo.build();
+    }
+
+    /**
+     * 打扫房间
+     * @param houseId 房间ID
+     * @return 统一返回值
+     */
+    @GetMapping("/clean")
+    public ResultInfo<String> cleanHouse(String houseId) {
+        houseMasterService.cleanHouse(houseId);
+        return ResultInfo.build();
+    }
+
+    /**
+     * 完成打扫
+     * @param houseId 房间ID
+     * @return 统一返回值
+     */
+    @GetMapping("/finish")
+    public ResultInfo<String> finishHouse(String houseId) {
+        houseMasterService.finishClean(houseId);
+        return ResultInfo.build();
+    }
 }

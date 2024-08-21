@@ -30,6 +30,10 @@ public class OrderMasterEntity implements Serializable {
 	 */
 	private String houseId;
 	/**
+	 * 预订人ID
+	 */
+	private String userId;
+	/**
 	 * 预定开始日期
 	 */
 	private LocalDate beginDate;
