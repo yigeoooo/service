@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Data;
 
 /**
@@ -32,11 +32,11 @@ public class OrderMasterEntity implements Serializable {
 	/**
 	 * 预定开始日期
 	 */
-	private LocalDateTime beginDate;
+	private LocalDate beginDate;
 	/**
 	 * 预定结束日期
 	 */
-	private LocalDateTime lastDate;
+	private LocalDate lastDate;
 	/**
 	 * 预订总日期
 	 */
