@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
  * 房间订单主档表
- * 
+ *
  * @author WangJianHui
  * @email 2844623709@qq.com
  * @date 2024-08-21 13:10:43
@@ -40,6 +41,10 @@ public class OrderMasterEntity implements Serializable {
 	 * 预订总日期
 	 */
 	private Long days;
+	/**
+	 * 总金额
+	 */
+	private BigDecimal totalPrice;
 	/**
 	 * 订单有效性(1:有效，0:过期)
 	 */
