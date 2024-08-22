@@ -61,19 +61,19 @@ public class BusinessExceptionHandler implements ResponseBodyAdvice<Object> {
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResultInfo handlerNoFoundException(Exception e) {
 		LOGGER.error(e.getMessage(), e);
-		return ResultInfo.build(ResultCode.NOT_FOUND.getCode(), ResultCode.NOT_FOUND.getName(),getLocaleMessage(ResultCode.NOT_FOUND.getName(), null),null,null);
+		return ResultInfo.build(ResultCode.NOT_FOUND.getCode(), ResultCode.NOT_FOUND.getName(),e.getMessage(),null,null);
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
 	public ResultInfo handleDuplicateKeyException(DuplicateKeyException e){
 		LOGGER.error(e.getMessage(), e);
-		return ResultInfo.build(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getName(), getLocaleMessage(ResultCode.UNAUTHORIZED.getName(), null),null,null);
+		return ResultInfo.build(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getName(), e.getMessage(),null,null);
 	}
 
 	@ExceptionHandler(AuthorizationException.class)
 	public ResultInfo handleAuthorizationException(AuthorizationException e){
 		LOGGER.error(e.getMessage(), e);
-		return ResultInfo.build(ResultCode.DATA_EXIST.getCode(), ResultCode.DATA_EXIST.getName(), getLocaleMessage(ResultCode.DATA_EXIST.getName(), null),null,null);
+		return ResultInfo.build(ResultCode.DATA_EXIST.getCode(), ResultCode.DATA_EXIST.getName(), e.getMessage(),null,null);
 	}
 	/**
 	 * 處理其他拋出的異常
@@ -81,14 +81,14 @@ public class BusinessExceptionHandler implements ResponseBodyAdvice<Object> {
 	@ExceptionHandler(Exception.class)
 	public ResultInfo handleException(Exception e) {
 		LOGGER.warn(e.getMessage(), e);
-		return ResultInfo.build(ResultCode.ERROR.getCode(), ResultCode.ERROR.getName(), getLocaleMessage(ResultCode.ERROR.getName(), null),null,null);
+		return ResultInfo.build(ResultCode.ERROR.getCode(), ResultCode.ERROR.getName(), e.getMessage(),null,null);
 	}
 	/**
 	 * 獲取國際化信息異常
 	 */
 	private String getLocaleMessage(String code, Object[] params) {
-		Locale locale = new Locale(LanguageCode.S_CHINESE.getLanguage());
-		String pattern = messageSource.getMessage(code, null, locale);
+//		Locale locale = new Locale(LanguageCode.S_CHINESE.getLanguage());
+		String pattern = messageSource.getMessage(code, null, null);
 		if (StringUtils.isNotEmpty(pattern)) {
 			return MessageFormat.format(pattern, params);
 		} else {

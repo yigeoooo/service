@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.system.service.modules.department.dto.DepartmentMasterOptionsListDto;
 import com.system.service.modules.department.dto.DepartmentMasterPageDto;
 import com.system.service.modules.department.entity.DepartmentMasterEntity;
+import com.system.service.modules.department.vo.DepartmentMasterEditVo;
 import com.system.service.modules.department.vo.DepartmentMasterPageVo;
 
 /**
@@ -35,5 +36,10 @@ public interface DepartmentMasterService extends IService<DepartmentMasterEntity
      */
     DepartmentMasterOptionsListDto getOptions();
 
+    /**
+     * 修改部信息
+     * @param vo 接参对象
+     */
+    void editDepartmentMaster(DepartmentMasterEditVo vo);
 }
 

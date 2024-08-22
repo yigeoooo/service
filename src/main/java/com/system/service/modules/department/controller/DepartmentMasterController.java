@@ -6,6 +6,7 @@ import com.system.service.common.utils.ResultInfo;
 import com.system.service.modules.department.dto.DepartmentMasterOptionsListDto;
 import com.system.service.modules.department.dto.DepartmentMasterPageDto;
 import com.system.service.modules.department.entity.DepartmentMasterEntity;
+import com.system.service.modules.department.vo.DepartmentMasterEditVo;
 import com.system.service.modules.department.vo.DepartmentMasterPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -69,6 +70,17 @@ public class DepartmentMasterController {
     @GetMapping("/options")
     public ResultInfo<DepartmentMasterOptionsListDto> getOptions() {
         return ResultInfo.build(departmentMasterService.getOptions());
+    }
+
+    /**
+     * 修改部门信息
+     * @param vo 接参对象
+     * @return 统一返回值
+     */
+    @PatchMapping("/edit")
+    public ResultInfo<String> editDepartment(@RequestBody DepartmentMasterEditVo vo) {
+        departmentMasterService.editDepartmentMaster(vo);
+        return ResultInfo.build();
     }
 
 }

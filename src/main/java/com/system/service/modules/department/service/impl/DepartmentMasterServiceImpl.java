@@ -9,7 +9,9 @@ import com.system.service.common.utils.StringUtils;
 import com.system.service.modules.department.dto.DepartmentMasterOptionsDto;
 import com.system.service.modules.department.dto.DepartmentMasterOptionsListDto;
 import com.system.service.modules.department.dto.DepartmentMasterPageDto;
+import com.system.service.modules.department.vo.DepartmentMasterEditVo;
 import com.system.service.modules.department.vo.DepartmentMasterPageVo;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -73,5 +75,23 @@ public class DepartmentMasterServiceImpl extends ServiceImpl<DepartmentMasterDao
                 .collect(Collectors.toList());
         dto.setList(collect);
         return dto;
+    }
+
+    @Override
+    public void editDepartmentMaster(DepartmentMasterEditVo vo) {
+        //vo转entity
+        DepartmentMasterEntity entity = new DepartmentMasterEntity();
+        if (StringUtils.isNotBlank(vo.getDepartmentName())) {
+            entity.setDepartmentName(vo.getDepartmentName());
+        }
+        if (vo.getSort() != null) {
+            entity.setSort(vo.getSort());
+        }
+        entity.setUpdateTime(LocalDateTime.now());
+        entity.setDepartmentId(vo.getDepartmentId());
+        //修改
+        if ((departmentMasterDao.updateById(entity) != Constant.ONE)) {
+            throw new BusinessException("修改失败！");
+        }
     }
 }
