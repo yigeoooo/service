@@ -1,6 +1,7 @@
 package com.system.service.modules.house.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -60,6 +61,7 @@ public class HouseMasterEntity implements Serializable {
 	/**
 	 * 逻辑删除标识符(0：正常，1：删除)
 	 */
+	@TableLogic
 	private String isDeleted;
 	/**
 	 * 房间单价
