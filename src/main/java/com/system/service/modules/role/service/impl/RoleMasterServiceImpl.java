@@ -8,6 +8,7 @@ import com.system.service.common.utils.ShiroUtils;
 import com.system.service.common.utils.StringUtils;
 import com.system.service.modules.role.dto.RoleMasterOptionsDto;
 import com.system.service.modules.role.dto.RoleMasterPageDto;
+import com.system.service.modules.role.vo.RoleMasterEditVo;
 import com.system.service.modules.role.vo.RoleMasterPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +69,22 @@ public class RoleMasterServiceImpl extends ServiceImpl<RoleMasterDao, RoleMaster
             dto.setRoleName(i.getRoleName());
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void editRoleInfo(RoleMasterEditVo vo) {
+        //接参主键判断
+        if (StringUtils.isBlank(vo.getRoleId())) {
+            throw new BusinessException("角色ID为空，请稍后重试");
+        }
+        //参数填充
+        RoleMasterEntity entity = new RoleMasterEntity();
+        entity.setRoleId(vo.getRoleId());
+        entity.setRoleName(vo.getRoleName());
+        entity.setSort(vo.getSort());
+        //修改
+        if ((roleMasterDao.updateById(entity)) != Constant.ONE) {
+            throw new BusinessException("修改角色信息失败！");
+        }
     }
 }

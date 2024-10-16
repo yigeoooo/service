@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.system.service.modules.role.dto.RoleMasterOptionsDto;
 import com.system.service.modules.role.dto.RoleMasterPageDto;
 import com.system.service.modules.role.entity.RoleMasterEntity;
+import com.system.service.modules.role.vo.RoleMasterEditVo;
 import com.system.service.modules.role.vo.RoleMasterPageVo;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public interface RoleMasterService extends IService<RoleMasterEntity> {
      */
     List<RoleMasterOptionsDto> getOptions(String departmentId);
 
+    /**
+     * 修改角色信息
+     * @param vo 接参对象
+     */
+    void editRoleInfo(RoleMasterEditVo vo);
 }
 

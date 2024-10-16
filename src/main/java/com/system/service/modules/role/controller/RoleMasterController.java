@@ -5,6 +5,7 @@ import com.system.service.common.utils.ResultInfo;
 import com.system.service.modules.role.dto.RoleMasterOptionsDto;
 import com.system.service.modules.role.dto.RoleMasterPageDto;
 import com.system.service.modules.role.entity.RoleMasterEntity;
+import com.system.service.modules.role.vo.RoleMasterEditVo;
 import com.system.service.modules.role.vo.RoleMasterPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -69,6 +70,17 @@ public class RoleMasterController {
     @GetMapping("/option/{departmentId}")
     public ResultInfo<List<RoleMasterOptionsDto>> getOption(@PathVariable("departmentId") String departmentId) {
         return ResultInfo.build(roleMasterService.getOptions(departmentId));
+    }
+
+    /**'
+     * 修改角色信息
+     * @param vo 接参对象
+     * @return 统一返回值
+     */
+    @PostMapping("/edit")
+    public ResultInfo<String> editRoleInfo(@RequestBody RoleMasterEditVo vo) {
+        roleMasterService.editRoleInfo(vo);
+        return ResultInfo.build();
     }
 
 }
